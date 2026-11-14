@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         var isChanged = false
         buttonChangeText.setOnClickListener {
             if (isChanged) {
-                textViewTitle.text = "Привет, мир!"
+                textViewTitle.text = "Привет, мир!!"
                 pelmenText.text = ""
                 textViewTitle.setTextColor(Color.BLACK)
             } else {
