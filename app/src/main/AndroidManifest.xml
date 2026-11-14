@@ -4,7 +4,7 @@
     android:allowBackup="true"
     android:label="My App"
     android:supportsRtl="true"
-    android:theme="@style/Theme.AppCompat.light.DarkActionBar">
+    android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
     <activity
     android:name=".MainActivity"
     android:exported="true">
@@ -14,4 +14,4 @@
     </intent-filter>
     </activity>
   </application>
-</mainfest>
+</manifest>
