@@ -57,6 +57,7 @@ class MainActivity : AppCompatActivity() {
                 textViewTitle.text = "Привет, мир!"
             } else {
                 textViewTitle.text = "Текст успешно изменен!"
+                textViewTitle.setTextColor(Color.RED)
             }
             isChanged = !isChanged
         }
