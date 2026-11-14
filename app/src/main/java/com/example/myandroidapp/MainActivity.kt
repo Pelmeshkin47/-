@@ -27,7 +27,12 @@ class MainActivity : AppCompatActivity() {
             setTextColor(Color.BLACK)
             gravity = Gravity.CENTER
         }
-
+        val pelmenText = TextView(this).apply {
+            text = ""
+            textSize = 24f
+            setTextColor(Color.BLACK)
+            gravity = Gravity.CENTER
+        }
         // 3. Создаем кнопку
         val buttonChangeText = Button(this).apply {
             text = "Изменить текст"
@@ -42,10 +47,12 @@ class MainActivity : AppCompatActivity() {
             bottomMargin = 32
         }
         textViewTitle.layoutParams = params
+        pelmenText.layoutParams = params
 
         // 5. Собираем всё вместе в единый экран
         rootLayout.addView(textViewTitle)
         rootLayout.addView(buttonChangeText)
+        rootLayout.addView(pelmenText)
 
         // 6. Устанавливаем созданный контейнер как главный экран активности
         setContentView(rootLayout)
@@ -55,9 +62,11 @@ class MainActivity : AppCompatActivity() {
         buttonChangeText.setOnClickListener {
             if (isChanged) {
                 textViewTitle.text = "Привет, мир!"
+                pelmenText.text = ""
                 textViewTitle.setTextColor(Color.BLACK)
             } else {
                 textViewTitle.text = "Текст и цвет изменен!"
+                pelmenText.text = "Пельмень"
                 textViewTitle.setTextColor(Color.RED)
             }
             isChanged = !isChanged
