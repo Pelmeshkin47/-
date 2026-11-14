@@ -55,8 +55,9 @@ class MainActivity : AppCompatActivity() {
         buttonChangeText.setOnClickListener {
             if (isChanged) {
                 textViewTitle.text = "Привет, мир!"
+                textViewTitle.setTextColor(Color.BLACK)
             } else {
-                textViewTitle.text = "Текст успешно изменен!"
+                textViewTitle.text = "Текст и цвет изменен!"
                 textViewTitle.setTextColor(Color.RED)
             }
             isChanged = !isChanged
