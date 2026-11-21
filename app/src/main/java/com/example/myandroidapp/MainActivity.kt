@@ -65,5 +65,60 @@ class PongView(context: Context) : View(context) {
         canvas.drawRoundRect(aiX, aiTop, aix + paddleWidht, aiTop + paddleHeight, 16f, 16f, paint)
         paint.color = Color.parseColor("#305CDE")
         canvas.drawRoundRect(playerX, playerTop, playerX + paddleWidth, playerTop + paddleHeight, 16f, 16f, paint)
+        
+        paint.color = Color.WHITE
+        canvas.drawCircle(ballX, ballY, ballRadius, paint)
+
+        postInvalidateOnAnimation()
+    }
+    private fun updateGame() {
+        ballX += ballVx
+        ballY += ballVy
+
+        if (ballX - ballRadius <= 0f) {
+            ballX = ballRadius
+            ballVx = abs(ballVx)
+        } else if (ballX + ballRadius >= width) {
+            ballX = width - ballRadius
+            ballVx = -abs(ballVx)
+        }
+
+        val aiCenter = aiX + paddleWidth / 2f
+        if (aiCenter < ballX - 15f) aiX += aiSpeed
+        else if (aiCenter > ballX + 15f) aiX -= aiSpeed
+        aiX = aiX.coerceIn(0f, width - paddleWidth)
+
+        val playerTop = height - 80f - paddleHeight
+        if (ballVy > 0 && ballY + ballRadius >= playerTop && ballY - ballRadius <= playerTop + paddleHeight) {
+            if (ballX in playerX..(playerX + paddleWidth)) {
+                ballY = playerTop - ballRadius
+                ballVy = -abs(ballVy) * 1.04f
+                val hitOffset = (ballX - (playerX + paddleWidth / 2f)) / (paddleWidth / 2f)
+                ballVx = hitOffset * 16f
+            }
+        }
+
+        val aiBottom = 80f + paddleHeight
+        if (ballVy < 0 && ballY - ballRadius <= aiBottom && ballY + ballRadius >= 80f) {
+            if (ballX in aiX..(aiX + paddleWidth)) {
+                ballY = aiBottom + ballRadius
+                ballVy = abs(ballVy) * 1.04f
+            }
+        }
+
+        if (ballY < 0f) {
+            playerScore++
+            resetBall(width, height)
+        } else if (ballY > height) {
+            aiScore++
+            resetBall(width, height)
+        }
+    }
+
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        if (event.action == MotionEvent.ACTION_MOVE || event.action == MotionEvent.ACTION_DOWN) {
+            playerX = (event.x - paddleWidth / 2f).coerceIn(0f, width - paddleWidth)
+        }
+        return true
     }
 }
